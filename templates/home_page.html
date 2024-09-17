@@ -11,15 +11,22 @@
         <h1>Welcome to MoviWeb App</h1>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('list_users') }}">Users</a></li>
+               <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('list_users') }}">Users List</a></li>
+                <li><a href="{{ url_for('user_movies', user_id=1) }}">Movies</a></li>
+                <li><a href="{{ url_for('add_user') }}">Add User</a></li>
+                <li><a href="{{ url_for('add_movie', user_id=1) }}">Add Movie</a></li>
+                <li><a href="{{ url_for('update_movie', user_id=1, movie_id=1) }}">Update Movie</a></li>
+                <li><a href="{{ url_for('delete_movie', user_id=1, movie_id=1) }}">Delete Movie</a></li>
+            </ul>
+        </nav>
             </ul>
         </nav>
     </header>
 
     <main>
         <h2>Home Page</h2>
-        <p>Welcome to the MoviWeb App! Use the navigation menu to view users or manage movies.</p>
+        <p>Welcome to the MoviWeb App! Use the navigation menu to view users, manage movies, or add new entries.</p>
     </main>
 
     <footer>
