@@ -87,3 +87,19 @@ main {
 .add-movie-button:hover {
     background-color: #0056b3;
 }
+
+.error-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.error-container h1 {
+    font-size: 2.5em;
+}
+
+.error-container p {
+    font-size: 1.2em;
+}
