@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Internal Server Error - MovieWeb</title>
+</head>
+<body>
+    <div class="error-container">
+        <h1>500 - Internal Server Error</h1>
+        <p>Oops! Something went wrong on our end. Please try again later.</p>
+        <a href="{{ url_for('home') }}">Home page</a>
+    </div>
+</body>
+</html>
+l>

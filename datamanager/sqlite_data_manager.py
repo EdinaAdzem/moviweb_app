@@ -1,5 +1,6 @@
 from flask import current_app
 from modelsDB import db, User, Movie
+import requests
 
 
 class SQLiteDataManager:
@@ -26,14 +27,19 @@ class SQLiteDataManager:
             db.session.commit()
 
     def add_movie(self, movie_data):
-        with current_app.app_context():
-            movie = Movie(**movie_data)
-            db.session.add(movie)
-            db.session.commit()
+        try:
+            with current_app.app_context():
+                movie = Movie(**movie_data)
+                db.session.add(movie)
+                db.session.commit()
+        except Exception as e:
+            print(f"An error occurred while adding a movie: {e}")
+            db.session.rollback()
 
     def get_movie(self, movie_id):
         with current_app.app_context():
-            return Movie.query.get(movie_id)
+            movie = Movie.query.get(movie_id)
+            return movie if movie else None
 
     def update_movie(self, movie_id, movie_data):
         with current_app.app_context():
@@ -49,3 +55,11 @@ class SQLiteDataManager:
             if movie:
                 db.session.delete(movie)
                 db.session.commit()
+
+    def fetch_movie_details(self, title):
+        api_key = 'c3bb5c1c'
+        url = f"http://www.omdbapi.com/?t={title}&apikey={api_key}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.json()
+        return {}

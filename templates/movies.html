@@ -3,19 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Movies - MovieWeb</title>
 </head>
 <body>
-    <h1>Movies List for User {{ user_id }}</h1>
-    <ul>
-        {% for movie in movies %}
-            <li>
-                {{ movie.name }} ({{ movie.year }}) - {{ movie.director }} - Rating: {{ movie.rating }}
-                <a href="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}">Edit</a>
-                <a href="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('add_movie', user_id=user_id) }}">Add New Movie</a>
+    <div class="nav-container">
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('list_users') }}">Users List</a></li>
+                    <li><a href="{{ url_for('user_movies', user_id=1) }}">Movies</a></li>
+                    <li><a href="{{ url_for('add_user') }}">Add User</a></li>
+                    <li><a href="{{ url_for('add_movie', user_id=1) }}">Add Movie</a></li>
+                    <li><a href="{{ url_for('update_movie', user_id=1, movie_id=1) }}">Update Movie</a></li>
+                    <li><a href="{{ url_for('delete_movie', user_id=1, movie_id=1) }}">Delete Movie</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    <h2>Movies List for User {{ user_id }}</h2>
+<div class="nav-container">
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Director</th>
+                <th>Year</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.name }}</td>
+                    <td>{{ movie.director }}</td>
+                    <td>{{ movie.year }}</td>
+                    <td>{{ movie.rating }}</td>
+                    <td>
+                        <a href="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}">Edit</a>
+                        <a href="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
