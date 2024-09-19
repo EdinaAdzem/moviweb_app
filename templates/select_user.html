@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Select User - MovieWeb</title>
+</head>
+<body>
+    <h1>Select User</h1>
+    <div class="nav-container">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('list_users') }}">Users List</a></li>
+                <li><a href="{{ url_for('add_user') }}">Add User</a></li>
+                <li><a href="{{ url_for('select_user') }}">Select User</a></li>
+            </ul>
+        </nav>
+    </div>
+    <form method="post">
+        <label for="user_id">Select Username:</label>
+        <select id="user_id" name="user_id" required>
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Select</button>
+    </form>
+    <a href="{{ url_for('list_users') }}">Back to Users List</a>
+</body>
+</html>

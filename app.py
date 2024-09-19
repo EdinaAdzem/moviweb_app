@@ -1,37 +1,42 @@
 from flask import Flask, render_template, request, redirect, url_for
 from datamanager.sqlite_data_manager import SQLiteDataManager
-from modelsDB import db  # Import db here
+from modelsDB import db
+
 
 def create_app():
     app = Flask(__name__)
 
-    # Set up configuration
     import os
     basedir = os.path.abspath(os.path.dirname(__file__))
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "database", "moviweb.db")}'
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    # Initialize SQLAlchemy
     db.init_app(app)
 
-    # Import models here to avoid circular imports
     with app.app_context():
         from modelsDB import User, Movie
         db.create_all()  # Create database tables
 
-    # Initialize SQLiteDataManager
     data_manager = SQLiteDataManager(app)
 
-    # routes
     @app.route('/')
     def home():
-        return render_template('home_page.html')
+        users = data_manager.get_all_users()
+        return render_template('home_page.html', users=users)
 
     @app.route('/users')
     def list_users():
         users = data_manager.get_all_users()
         return render_template('users_page.html', users=users)
+
+    @app.route('/select_user', methods=['GET', 'POST'])
+    def select_user():
+        if request.method == 'POST':
+            selected_user_id = request.form['user_id']
+            return redirect(url_for('user_movies', user_id=selected_user_id))
+
+        users = data_manager.get_all_users()
+        return render_template('select_user.html', users=users)
 
     @app.route('/user/<int:user_id>/movies')
     def user_movies(user_id):
@@ -76,10 +81,10 @@ def create_app():
 
         if request.method == 'POST':
             movie_data = {
-                'name': request.form['name'] or movie.name,
-                'director': request.form['director'] or movie.director,
-                'year': request.form['year'] or movie.year,
-                'rating': request.form['rating'] or movie.rating,
+                'name': request.form.get('title', movie.name),
+                'director': request.form.get('director', movie.director),
+                'year': request.form.get('year', movie.year),
+                'rating': request.form.get('rating', movie.rating),
                 'user_id': user_id
             }
             data_manager.update_movie(movie_id, movie_data)
@@ -94,7 +99,6 @@ def create_app():
 
     return app
 
-    #error handling
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('template404.html'), 404
@@ -102,6 +106,7 @@ def create_app():
     @app.errorhandler(500)
     def internal_server_error(e):
         return render_template('template500.html'), 500
+
 
 if __name__ == '__main__':
     app = create_app()

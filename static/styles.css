@@ -8,6 +8,13 @@ header {
     margin: 20px 0;
 }
 
+.header-logo {
+    max-width: 450px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 main {
     text-align: center;
     margin: 20px;
@@ -102,4 +109,18 @@ main {
 
 .error-container p {
     font-size: 1.2em;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 20px 0;
+}
+
+video {
+    max-width: 20%;
+    max-height: 20%;
+    border: 2px solid #000;
 }

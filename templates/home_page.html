@@ -5,30 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviWeb App - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50%;
+            width: auto;
+            background: #000;
+        }
+
+        video {
+            max-width: 50%;
+            max-height: 50%;
+            border: 2px solid #fff;
+        }
+    </style>
+
 </head>
 <body>
     <header>
         <h1>Welcome to MoviWeb App</h1>
+        <img src="{{ url_for('static', filename='header_logo.png') }}" alt="Header Logo" class="header-logo">
     </header>
 
     <main>
         <p>Welcome to MovieApp, your go-to platform for managing and enjoying your movie collection! With MovieApp, users can easily browse, add, update, and delete their favorite films. Whether you're a casual viewer or a cinephile, our intuitive interface allows you to track details like movie titles, directors, release years, and ratings. Join us in celebrating the art of cinema, and never lose track of your must-see films again!</p>
-    </main>
 
-    <footer>
         <div class="nav-container">
             <nav>
                 <ul class="nav-list">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('list_users') }}">Users List</a></li>
-                    <li><a href="{{ url_for('user_movies', user_id=1) }}">Movies</a></li>
                     <li><a href="{{ url_for('add_user') }}">Add User</a></li>
-                    <li><a href="{{ url_for('add_movie', user_id=1) }}">Add Movie</a></li>
-                    <li><a href="{{ url_for('update_movie', user_id=1, movie_id=1) }}">Update Movie</a></li>
-                    <li><a href="{{ url_for('delete_movie', user_id=1, movie_id=1) }}">Delete Movie</a></li>
+                    <li><a href="{{ url_for('select_user') }}">Select User</a></li>
+
                 </ul>
             </nav>
         </div>
-    </footer>
+
+        <div class="video-container">
+            <video src="{{ url_for('static', filename='logo.mp4') }}" autoplay muted loop controls></video>
+        </div>
+
+    </main>
+
 </body>
 </html>

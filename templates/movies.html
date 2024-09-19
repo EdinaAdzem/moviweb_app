@@ -7,16 +7,15 @@
     <title>Movies - MovieWeb</title>
 </head>
 <body>
+<header>
+    <img src="{{ url_for('static', filename='header_logo.png') }}" alt="Header Logo" class="header-logo">
+</header>
     <div class="nav-container">
             <nav>
                 <ul class="nav-list">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('list_users') }}">Users List</a></li>
-                    <li><a href="{{ url_for('user_movies', user_id=1) }}">Movies</a></li>
-                    <li><a href="{{ url_for('add_user') }}">Add User</a></li>
-                    <li><a href="{{ url_for('add_movie', user_id=1) }}">Add Movie</a></li>
-                    <li><a href="{{ url_for('update_movie', user_id=1, movie_id=1) }}">Update Movie</a></li>
-                    <li><a href="{{ url_for('delete_movie', user_id=1, movie_id=1) }}">Delete Movie</a></li>
+                    <li><a href="{{ url_for('select_user') }}">Select User</a></li>
                 </ul>
             </nav>
         </div>
